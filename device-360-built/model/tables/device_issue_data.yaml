@@ -1,0 +1,58 @@
+tables:
+  - name: device_issue_data
+    title: Device Issue Data
+    sql: {{ load_sql('device_issue_data') }}
+    description: Data regarding issues reported for devices.
+    public: true
+    dimensions:
+      - name: dataset_id
+        description: Identifier for the dataset.
+        type: string
+        column: dataset_id
+        primary_key: true
+        public: true
+      - name: device_id
+        description: Unique identifier for the device.
+        type: string
+        column: device_id
+        public: true
+      - name: issue_status
+        description: Current status of the issue reported.
+        type: string
+        column: issue_status
+        public: true
+      - name: issue_title
+        description: Title of the reported issue.
+        type: string
+        column: issue_title
+        public: true
+      - name: issue_type_id
+        description: Identifier for the type of issue.
+        type: string
+        column: issue_type_id
+        public: true
+      - name: report_time
+        description: Timestamp of the report.
+        type: time
+        column: report_time
+        public: true
+      - name: timestamp
+        description: Timestamp of the issue occurrence.
+        type: time
+        column: timestamp
+        public: true
+      - name: subscription_id
+        description: Column subscription_id from the source table.
+        type: string
+        column: subscription_id
+        public: true
+      - name: subscription_ids
+        description: Column subscription_ids from the source table.
+        type: string
+        column: subscription_ids
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.dataset_id}"

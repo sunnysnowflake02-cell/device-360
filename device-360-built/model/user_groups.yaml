@@ -1,0 +1,29 @@
+user_groups:
+  - name: masking_redacted
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes: '*'
+  - name: device_health_analysts
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes:
+      - users:id:device_health_user_1
+      - users:id:device_health_user_2
+  - name: warranty_claims_analysts
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes:
+      - users:id:warranty_claims_user_1
+      - users:id:warranty_claims_user_2

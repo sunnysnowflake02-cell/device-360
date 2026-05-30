@@ -1,0 +1,75 @@
+version: v1
+lens: device-360-agenticai
+description: Semantic join graph for this product. Each Lens SQL file remains a single-table SELECT; relationships below define
+  how logical tables connect for analytics and validation.
+edges:
+- left_table: device_data
+  right_table: device_issue_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.device_issue_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 3ef72af5-d24f-46a6-b8d1-41c5bc8f7be9
+  rationale: Join on device_id to correlate device data with reported issues.
+- left_table: device_data
+  right_table: process_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.process_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 960f8bdc-abd4-4111-89ac-e4971b14a9d9
+  rationale: Join on device_id to analyze performance metrics related to each device.
+- left_table: device_data
+  right_table: memory_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.memory_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 934c4df8-4596-459c-a971-e99947fc736f
+  rationale: Join on device_id to assess memory usage for each device.
+- left_table: device_data
+  right_table: network_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.network_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: b4e21a7a-bd70-4fde-a7c4-bf6e0718ed06
+  rationale: Join on device_id to evaluate network connectivity for each device.
+- left_table: device_data
+  right_table: warranty_instance_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.warranty_instance_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: bb1e4baf-27ce-4fd4-84c4-9dbdbff07aa5
+  rationale: Join on device_id to link device data with warranty information.
+- left_table: device_data
+  right_table: laptop_battery_ml_predictions
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.laptop_battery_ml_predictions
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 70242e5b-cef5-4852-8ad6-ff1c6965241e
+  rationale: Join on device_id to connect device data with battery performance predictions.
+- left_table: device_data
+  right_table: device_event_status
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.device_event_status
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 1a9d0153-ae4a-4839-b340-045ec1e5ecd5
+  rationale: Join on device_id to correlate device status with performance metrics.

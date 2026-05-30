@@ -1,0 +1,89 @@
+name: wf-device-360-agenticai-dq-bundle
+version: v1
+type: workflow
+tags:
+  - Quality.BusinessRule
+  - Tier.Generated
+  - SemanticModelAgent
+description: |
+  Consolidated business-rule data quality checks for this lens. One workflow;
+  multiple source datasets under stackSpec.inputs.
+workspace: public
+workflow:
+  dag:
+    - name: device-360-agenticai-dq-bundle
+      description: |
+        Consolidated DQ checks for approved steward rules (multi-table).
+      title: Consolidated business validation checks
+      spec:
+        stack: soda+python:1.0
+        logLevel: INFO
+        compute: runnable-default
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        stackSpec:
+          inputs:
+            - dataset: dataos://icebase:agenticai_devicesupport/device_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: device_purchase_date_not_future
+                    fail condition: |
+                      TRY_CAST(device_purchase_date AS DATE) > CURRENT_DATE
+                    attributes:
+                      category: Validity
+                      description: "The 'device_purchase_date' column should always reflect a past date to ensure accurate device lifecycle tracking. Future dates could indicate data entry errors or misconfigurations. Current profiling does not indicate any future dates, but this check is crucial for integrity."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/process_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: cpuusage_exceeds_100_percent
+                    fail condition: |
+                      TRY_CAST(cpuusage AS DOUBLE) > 100
+                    attributes:
+                      category: Validity
+                      description: "The 'cpuusage' column in 'process_event_data' is expected to reflect CPU usage as a percentage. Values exceeding 100% are nonsensical and indicate errors in data capture or processing. Current profiling indicates that this column needs careful monitoring for data anomalies."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/storage_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: diskfreepercentage_range_check
+                    fail condition: |
+                      TRY_CAST(diskfreepercentage AS DOUBLE) < 0 OR TRY_CAST(diskfreepercentage AS DOUBLE) > 100
+                    attributes:
+                      category: Validity
+                      description: "The 'diskfreepercentage' column in 'storage_event_data' should logically fall within the range of 0 to 100, representing the percentage of free disk space. Any values outside this range would be invalid and indicate potential data quality issues. Profiling shows a small number of rows for this column, warranting this validation."
+              profile:
+                columns:
+                  - "*"

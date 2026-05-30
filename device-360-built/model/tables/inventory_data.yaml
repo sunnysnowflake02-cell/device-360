@@ -1,0 +1,43 @@
+tables:
+  - name: inventory_data
+    title: Inventory Data
+    sql: {{ load_sql('inventory_data') }}
+    description: Data regarding the inventory of devices.
+    public: true
+    dimensions:
+      - name: device_manufacturer
+        description: Manufacturer of the device.
+        type: string
+        column: device_manufacturer
+        primary_key: true
+        public: true
+      - name: device_brand
+        description: Brand of the device.
+        type: string
+        column: device_brand
+        public: true
+      - name: battery_type
+        description: Type of battery used in the device.
+        type: string
+        column: battery_type
+        public: true
+      - name: skuid
+        description: Stock Keeping Unit identifier for the device.
+        type: string
+        column: skuid
+        public: true
+      - name: quantity
+        description: Quantity of devices in inventory.
+        type: number
+        column: quantity
+        public: true
+      - name: location
+        description: Location of the inventory.
+        type: string
+        column: location
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.device_manufacturer}"

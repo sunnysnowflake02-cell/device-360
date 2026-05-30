@@ -1,0 +1,46 @@
+tables:
+  - name: warranty_instance_data
+    title: Warranty Instance Data
+    sql: {{ load_sql('warranty_instance_data') }}
+    description: Data regarding warranty instances for devices.
+    public: true
+    dimensions:
+      - name: warranty_id
+        description: Unique identifier for the warranty instance.
+        type: string
+        column: warranty_id
+        primary_key: true
+        public: true
+      - name: device_id
+        description: Unique identifier for the device.
+        type: string
+        column: device_id
+        public: true
+      - name: warranty_start_date
+        description: Start date of the warranty period.
+        type: time
+        column: warranty_start_date
+        public: true
+      - name: warranty_status
+        description: Current status of the warranty.
+        type: string
+        column: warranty_status
+        public: true
+      - name: warranty_type
+        description: Type of warranty associated with the device.
+        type: string
+        column: warranty_type
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.warranty_id}"
+    segments:
+      - name: devices_with_warranty_claims
+        sql: "{TABLE}.warranty_status = 'Claimed'"
+        meta:
+          secure:
+            user_groups:
+              includes:
+                - warranty_claims_analysts

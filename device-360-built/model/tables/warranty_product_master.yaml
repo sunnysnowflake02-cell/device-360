@@ -1,0 +1,46 @@
+tables:
+  - name: warranty_product_master
+    title: Warranty Product Master
+    sql: {{ load_sql('warranty_product_master') }}
+    description: Master data for warranty products.
+    public: true
+    dimensions:
+      - name: warranty_product_code
+        description: Code for the warranty product.
+        type: string
+        column: warranty_product_code
+        primary_key: true
+        public: true
+      - name: warranty_product_name
+        description: Name of the warranty product.
+        type: string
+        column: warranty_product_name
+        public: true
+      - name: warranty_period_in_months
+        description: Warranty period in months.
+        type: number
+        column: warranty_period_in_months
+        public: true
+      - name: warranty_price
+        description: Price of the warranty product.
+        type: number
+        column: warranty_price
+        public: true
+      - name: warranty_type
+        description: Type of warranty product.
+        type: string
+        column: warranty_type
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.warranty_product_code}"
+      - name: sum_warranty_price
+        description: Sum of warranty price for rows in this grain.
+        type: sum
+        sql: "{TABLE.warranty_price}"
+      - name: avg_warranty_price
+        description: Average of warranty price for rows in this grain.
+        type: avg
+        sql: "{TABLE.warranty_price}"
