@@ -2,22 +2,17 @@ tables:
   - name: device_issue_data
     title: Device Issue Data
     sql: {{ load_sql('device_issue_data') }}
-    description: Data regarding issues reported for devices.
+    description: Data regarding issues reported for devices including status and type.
     public: true
     dimensions:
-      - name: dataset_id
-        description: Identifier for the dataset.
-        type: string
-        column: dataset_id
-        primary_key: true
-        public: true
       - name: device_id
         description: Unique identifier for the device.
         type: string
         column: device_id
+        primary_key: true
         public: true
       - name: issue_status
-        description: Current status of the issue reported.
+        description: Current status of the issue (e.g., open, resolved).
         type: string
         column: issue_status
         public: true
@@ -27,19 +22,19 @@ tables:
         column: issue_title
         public: true
       - name: issue_type_id
-        description: Identifier for the type of issue.
+        description: Identifier for the type of issue reported.
         type: string
         column: issue_type_id
         public: true
       - name: report_time
-        description: Timestamp of the report.
+        description: Timestamp when the issue was reported.
         type: time
         column: report_time
         public: true
-      - name: timestamp
-        description: Timestamp of the issue occurrence.
-        type: time
-        column: timestamp
+      - name: dataset_id
+        description: Column dataset_id from the source table.
+        type: string
+        column: dataset_id
         public: true
       - name: subscription_id
         description: Column subscription_id from the source table.
@@ -51,8 +46,21 @@ tables:
         type: string
         column: subscription_ids
         public: true
+      - name: timestamp
+        description: Column timestamp from the source table.
+        type: time
+        column: timestamp
+        public: true
     measures:
       - name: row_count
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
-        sql: "{TABLE.dataset_id}"
+        sql: "{TABLE.device_id}"
+    segments:
+      - name: active_devices
+        sql: "{TABLE}.issue_status = 'Active'"
+        meta:
+          secure:
+            user_groups:
+              includes:
+                - device_issue_resolvers

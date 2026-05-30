@@ -2,7 +2,7 @@ tables:
   - name: device_data
     title: Device Data
     sql: {{ load_sql('device_data') }}
-    description: Information about devices including identifiers, context, and specifications.
+    description: Information about devices including their context, brand, model, and purchase details.
     public: true
     joins:
       - name: device_event_status
@@ -11,17 +11,14 @@ tables:
       - name: device_issue_data
         relationship: one_to_many
         sql: "{TABLE}.device_id = {device_issue_data.device_id}"
+      - name: employee_data
+        relationship: many_to_one
+        sql: "{TABLE}.customer_id = {employee_data.customer_id}"
       - name: laptop_battery_ml_predictions
-        relationship: one_to_many
+        relationship: one_to_one
         sql: "{TABLE}.device_id = {laptop_battery_ml_predictions.device_id}"
-      - name: memory_event_data
-        relationship: one_to_many
-        sql: "{TABLE}.device_id = {memory_event_data.device_id}"
-      - name: network_event_data
-        relationship: one_to_many
-        sql: "{TABLE}.device_id = {network_event_data.device_id}"
       - name: process_event_data
-        relationship: one_to_many
+        relationship: many_to_one
         sql: "{TABLE}.device_id = {process_event_data.device_id}"
       - name: warranty_instance_data
         relationship: one_to_many
@@ -43,20 +40,10 @@ tables:
         type: string
         column: context_id
         public: true
-      - name: dataset_id
-        description: Identifier for the dataset the device data belongs to.
-        type: string
-        column: dataset_id
-        public: true
       - name: device_context_datetime
         description: Timestamp of the device context information.
         type: time
         column: device_context_datetime
-        public: true
-      - name: device_context_id
-        description: Identifier for the device context.
-        type: string
-        column: device_context_id
         public: true
       - name: device_bios_version
         description: Version of the device BIOS.
@@ -67,36 +54,6 @@ tables:
         description: Brand of the device.
         type: string
         column: device_brand
-        public: true
-      - name: device_ec_version
-        description: Version of the device EC.
-        type: string
-        column: device_ec_version
-        public: true
-      - name: device_enclosuretype
-        description: Type of enclosure of the device.
-        type: string
-        column: device_enclosuretype
-        public: true
-      - name: device_family
-        description: Family classification of the device.
-        type: string
-        column: device_family
-        public: true
-      - name: device_id2
-        description: Secondary identifier for the device.
-        type: string
-        column: device_id2
-        public: true
-      - name: device_info_datetime
-        description: Timestamp of the device information.
-        type: time
-        column: device_info_datetime
-        public: true
-      - name: device_manufacturer
-        description: Manufacturer of the device.
-        type: string
-        column: device_manufacturer
         public: true
       - name: device_modeltype
         description: Model type of the device.
@@ -113,85 +70,120 @@ tables:
         type: time
         column: device_purchase_date
         public: true
+      - name: os_name
+        description: Operating system name of the device.
+        type: string
+        column: os_name
+        public: true
+      - name: os_version
+        description: Operating system version of the device.
+        type: string
+        column: os_version
+        public: true
+      - name: dataset_id
+        description: Column dataset_id from the source table.
+        type: string
+        column: dataset_id
+        public: true
+      - name: device_context_id
+        description: Column device_context_id from the source table.
+        type: string
+        column: device_context_id
+        public: true
+      - name: device_ec_version
+        description: Column device_ec_version from the source table.
+        type: string
+        column: device_ec_version
+        public: true
+      - name: device_enclosuretype
+        description: Column device_enclosuretype from the source table.
+        type: string
+        column: device_enclosuretype
+        public: true
+      - name: device_family
+        description: Column device_family from the source table.
+        type: string
+        column: device_family
+        public: true
+      - name: device_id2
+        description: Column device_id2 from the source table.
+        type: string
+        column: device_id2
+        public: true
+      - name: device_info_datetime
+        description: Column device_info_datetime from the source table.
+        type: time
+        column: device_info_datetime
+        public: true
+      - name: device_manufacturer
+        description: Column device_manufacturer from the source table.
+        type: string
+        column: device_manufacturer
+        public: true
       - name: device_smbios_version
-        description: Version of the device SMBIOS.
+        description: Column device_smbios_version from the source table.
         type: string
         column: device_smbios_version
         public: true
       - name: device_subbrand
-        description: Subbrand of the device.
+        description: Column device_subbrand from the source table.
         type: string
         column: device_subbrand
         public: true
       - name: os_country
-        description: Country setting of the operating system.
+        description: Column os_country from the source table.
         type: string
         column: os_country
         public: true
       - name: os_language
-        description: Language setting of the operating system.
+        description: Column os_language from the source table.
         type: string
         column: os_language
         public: true
-      - name: os_name
-        description: Name of the operating system.
-        type: string
-        column: os_name
-        public: true
       - name: os_update_description
-        description: Description of the latest OS update.
+        description: Column os_update_description from the source table.
         type: string
         column: os_update_description
         public: true
       - name: os_update_title
-        description: Title of the latest OS update.
+        description: Column os_update_title from the source table.
         type: string
         column: os_update_title
         public: true
-      - name: os_version
-        description: Version of the operating system.
-        type: string
-        column: os_version
-        public: true
       - name: country_code
-        description: Country code of the device.
+        description: Column country_code from the source table.
         type: string
         column: country_code
         public: true
       - name: country_name
-        description: Country name of the device.
+        description: Column country_name from the source table.
         type: string
         column: country_name
         public: true
       - name: language_code
-        description: Language code of the device.
+        description: Column language_code from the source table.
         type: string
         column: language_code
         public: true
       - name: language_name
-        description: Language name of the device.
+        description: Column language_name from the source table.
         type: string
         column: language_name
         public: true
       - name: region_info_datetime
-        description: Timestamp of the region information.
+        description: Column region_info_datetime from the source table.
         type: time
         column: region_info_datetime
         public: true
       - name: region_name
-        description: Name of the region associated with the device.
+        description: Column region_name from the source table.
         type: string
         column: region_name
         public: true
       - name: report_time
-        description: Timestamp of the report.
+        description: Column report_time from the source table.
         type: time
         column: report_time
-        public: true
-      - name: device_inventory_location
-        description: Location of the device in inventory.
-        type: string
-        column: device_inventory_location
         public: true
       - name: schema_ver
         description: Column schema_ver from the source table.
@@ -238,8 +230,21 @@ tables:
         type: number
         column: udc_version
         public: true
+      - name: device_inventory_location
+        description: Column device_inventory_location from the source table.
+        type: string
+        column: device_inventory_location
+        public: true
     measures:
       - name: row_count
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
         sql: "{TABLE.device_id}"
+    segments:
+      - name: north_american_devices
+        sql: "{TABLE}.region_name = 'North America'"
+        meta:
+          secure:
+            user_groups:
+              includes:
+                - north_american_device_analysts

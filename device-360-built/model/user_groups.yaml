@@ -7,7 +7,7 @@ user_groups:
       - jobs
       - source
     includes: '*'
-  - name: device_health_analysts
+  - name: north_american_device_analysts
     api_scopes:
       - meta
       - data
@@ -15,9 +15,9 @@ user_groups:
       - jobs
       - source
     includes:
-      - users:id:device_health_user_1
-      - users:id:device_health_user_2
-  - name: warranty_claims_analysts
+      - users:id:device_analyst_1
+      - users:id:device_analyst_2
+  - name: device_issue_resolvers
     api_scopes:
       - meta
       - data
@@ -25,5 +25,15 @@ user_groups:
       - jobs
       - source
     includes:
-      - users:id:warranty_claims_user_1
-      - users:id:warranty_claims_user_2
+      - users:id:issue_resolver_1
+      - users:id:issue_resolver_2
+  - name: device_performance_monitors
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes:
+      - users:id:performance_monitor_1
+      - users:id:performance_monitor_2

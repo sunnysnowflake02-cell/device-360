@@ -1,0 +1,113 @@
+name: wf-device-intelligence-360-dq-bundle
+version: v1
+type: workflow
+tags:
+  - Quality.BusinessRule
+  - Tier.Generated
+  - SemanticModelAgent
+description: |
+  Consolidated business-rule data quality checks for this lens. One workflow;
+  multiple source datasets under stackSpec.inputs.
+workspace: public
+workflow:
+  dag:
+    - name: device-intelligence-360-dq-bundle
+      description: |
+        Consolidated DQ checks for approved steward rules (multi-table).
+      title: Consolidated business validation checks
+      spec:
+        stack: soda+python:1.0
+        logLevel: INFO
+        compute: runnable-default
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        stackSpec:
+          inputs:
+            - dataset: dataos://icebase:agenticai_devicesupport/device_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: device_purchase_date_not_future
+                    fail condition: |
+                      TRY_CAST(device_purchase_date AS DATE) > CURRENT_DATE
+                    attributes:
+                      category: Validity
+                      description: "The 'device_purchase_date' column must contain dates that are not in the future."
+
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/device_issue_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: valid_issue_status
+                    fail condition: |
+                      issue_status NOT IN ('Open', 'Resolved', 'In Progress')
+                    attributes:
+                      category: Validity
+                      description: "The 'issue_status' column should only contain specific values."
+
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/laptop_battery_ml_predictions
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: predicted_proba_range
+                    fail condition: |
+                      TRY_CAST(predicted_proba AS DOUBLE) < 0 OR TRY_CAST(predicted_proba AS DOUBLE) > 1
+                    attributes:
+                      category: Validity
+                      description: "The 'predicted_proba' column must range from 0 to 1."
+
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/storage_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: diskfreepercentage_bounds
+                    fail condition: |
+                      TRY_CAST(diskfreepercentage AS DOUBLE) < 0 OR TRY_CAST(diskfreepercentage AS DOUBLE) > 100
+                    attributes:
+                      category: Validity
+                      description: "The 'diskfreepercentage' column must range from 0 to 100."
+
+              profile:
+                columns:
+                  - "*"

@@ -2,83 +2,83 @@ tables:
   - name: process_event_data
     title: Process Event Data
     sql: {{ load_sql('process_event_data') }}
-    description: Data regarding process events and metrics.
+    description: Telemetry data regarding processes running on devices including CPU usage.
     public: true
     dimensions:
-      - name: dataset_context_id
-        description: Context identifier for the dataset.
-        type: string
-        column: dataset_context_id
-        primary_key: true
-        public: true
-      - name: dataset_id
-        description: Identifier for the dataset.
-        type: string
-        column: dataset_id
-        public: true
-      - name: device_context_id
-        description: Context identifier for the device.
-        type: string
-        column: device_context_id
-        public: true
       - name: device_id
         description: Unique identifier for the device.
         type: string
         column: device_id
-        public: true
-      - name: item_context_id
-        description: Context identifier for the item.
-        type: string
-        column: item_context_id
+        primary_key: true
         public: true
       - name: cpuusage
-        description: CPU usage percentage.
+        description: Current CPU usage percentage.
         type: number
         column: cpuusage
         public: true
-      - name: numofprocesspercpuusage
-        description: Number of processes per CPU usage.
-        type: number
-        column: numofprocesspercpuusage
-        public: true
-      - name: numofthreadpercpuusage
-        description: Number of threads per CPU usage.
-        type: number
-        column: numofthreadpercpuusage
-        public: true
       - name: processcount
-        description: Total number of processes running.
+        description: Total number of processes running on the device.
         type: number
         column: processcount
         public: true
+      - name: dataset_context_id
+        description: Column dataset_context_id from the source table.
+        type: string
+        column: dataset_context_id
+        public: true
+      - name: dataset_id
+        description: Column dataset_id from the source table.
+        type: string
+        column: dataset_id
+        public: true
+      - name: device_context_id
+        description: Column device_context_id from the source table.
+        type: string
+        column: device_context_id
+        public: true
+      - name: item_context_id
+        description: Column item_context_id from the source table.
+        type: string
+        column: item_context_id
+        public: true
+      - name: numofprocesspercpuusage
+        description: Column numofprocesspercpuusage from the source table.
+        type: string
+        column: numofprocesspercpuusage
+        public: true
+      - name: numofthreadpercpuusage
+        description: Column numofthreadpercpuusage from the source table.
+        type: string
+        column: numofthreadpercpuusage
+        public: true
       - name: systemstate
-        description: Current state of the system.
+        description: Column systemstate from the source table.
         type: string
         column: systemstate
         public: true
       - name: threadcount
-        description: Total number of threads running.
+        description: Column threadcount from the source table.
         type: number
         column: threadcount
         public: true
       - name: item_id
-        description: Identifier for the item.
+        description: Column item_id from the source table.
         type: string
         column: item_id
         public: true
       - name: item_name
-        description: Name of the item.
+        description: Column item_name from the source table.
         type: string
         column: item_name
         public: true
       - name: item_time
-        description: Timestamp of the item event.
-        type: time
+        description: Column item_time from the source table.
+        type: string
         column: item_time
         public: true
       - name: report_time
-        description: Timestamp of the report.
-        type: time
+        description: Column report_time from the source table.
+        type: string
         column: report_time
         public: true
       - name: schema_ver
@@ -350,20 +350,12 @@ tables:
       - name: row_count
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
-        sql: "{TABLE.dataset_context_id}"
-      - name: avg_cpuusage
-        description: Average of cpuusage for rows in this grain.
+        sql: "{TABLE.device_id}"
+      - name: avg_process_cpu_usage
+        description: Average CPU usage across all processes.
         type: avg
         sql: "{TABLE.cpuusage}"
-      - name: avg_numofprocesspercpuusage
-        description: Average of numofprocesspercpuusage for rows in this grain.
-        type: avg
-        sql: "{TABLE.numofprocesspercpuusage}"
-      - name: avg_numofthreadpercpuusage
-        description: Average of numofthreadpercpuusage for rows in this grain.
-        type: avg
-        sql: "{TABLE.numofthreadpercpuusage}"
-      - name: sum_processcount
-        description: Sum of processcount for rows in this grain.
+      - name: total_process_count
+        description: Total number of processes across all devices.
         type: sum
         sql: "{TABLE.processcount}"

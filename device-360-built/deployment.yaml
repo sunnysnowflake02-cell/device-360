@@ -1,11 +1,11 @@
-name: device-360-agenticai
+name: device-intelligence-360
 version: v1alpha
 type: lens
 tags:
   - Tier.Generated
   - SemanticModelAgent
 description: |
-  The Device Intelligence 360 data product provides stakeholders with a comprehensive view of enterprise laptop fleets, focusing on critical dimensions such as customer context, device performance, and network connectivity. By analyzing key performance indicators related to device failure prediction, including telemetry data, error rates, and resource utilization, organizations can proactively identify issues and prioritize remediation efforts. This lens empowers decision-makers to enhance fleet health and optimize service delivery while ensuring sensitive information is appropriately protected for non-privileged users. Ultimately, it supports informed strategic decisions that improve operational efficiency and customer satisfaction.
+  The Device Intelligence 360 data product provides stakeholders with a comprehensive view of enterprise laptop fleets, focusing on critical metrics such as device health, memory and storage usage, and network connectivity. By analyzing these dimensions, decision-makers can identify potential device failures early, prioritize remediation efforts, and enhance overall fleet performance. This lens ensures that sensitive customer information is protected while delivering valuable insights that support proactive management and operational efficiency. Ultimately, it empowers organizations to optimize their IT resources and improve service delivery.
 layer: user
 owner: manpreetsingh
 workspace: public

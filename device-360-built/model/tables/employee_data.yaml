@@ -2,7 +2,7 @@ tables:
   - name: employee_data
     title: Employee Data
     sql: {{ load_sql('employee_data') }}
-    description: Information about employees associated with devices.
+    description: Information about employees associated with devices including contact details.
     public: true
     dimensions:
       - name: customer_id
@@ -49,17 +49,17 @@ tables:
               includes:
                 - masking_redacted
       - name: created_at
-        description: Timestamp when the employee record was created.
+        description: Column created_at from the source table.
         type: time
         column: created_at
         public: true
       - name: updated_at
-        description: Timestamp when the employee record was last updated.
+        description: Column updated_at from the source table.
         type: time
         column: updated_at
         public: true
       - name: customer_department
-        description: Department of the customer.
+        description: Column customer_department from the source table.
         type: string
         column: customer_department
         public: true

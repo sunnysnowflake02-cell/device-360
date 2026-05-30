@@ -2,7 +2,7 @@ tables:
   - name: laptop_battery_ml_predictions
     title: Laptop Battery ML Predictions
     sql: {{ load_sql('laptop_battery_ml_predictions') }}
-    description: Machine learning predictions for laptop battery performance.
+    description: Machine learning predictions regarding laptop battery performance.
     public: true
     dimensions:
       - name: device_id
@@ -22,7 +22,7 @@ tables:
         column: predicted
         public: true
       - name: predicted_proba
-        description: Probability of the predicted battery performance.
+        description: Column predicted_proba from the source table.
         type: number
         column: predicted_proba
         public: true
@@ -31,3 +31,7 @@ tables:
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
         sql: "{TABLE.device_id}"
+      - name: avg_predicted_battery_performance
+        description: Average predicted battery performance across devices.
+        type: avg
+        sql: "{TABLE.predicted}"
