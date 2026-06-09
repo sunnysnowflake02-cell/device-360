@@ -2,7 +2,7 @@ tables:
   - name: warranty_product_master
     title: Warranty Product Master
     sql: {{ load_sql('warranty_product_master') }}
-    description: Master data for warranty products including pricing and periods.
+    description: Master data for warranty products including pricing and duration.
     public: true
     dimensions:
       - name: warranty_product_code
@@ -17,7 +17,7 @@ tables:
         column: warranty_product_name
         public: true
       - name: warranty_period_in_months
-        description: Warranty period in months.
+        description: Duration of the warranty period in months.
         type: number
         column: warranty_period_in_months
         public: true

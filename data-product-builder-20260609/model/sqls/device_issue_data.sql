@@ -8,7 +8,7 @@ SELECT
   "issue_title" AS issue_title,
   "issue_type_id" AS issue_type_id,
   CAST("report_time" AS TIMESTAMP(6)) AS report_time,
+  CAST("timestamp" AS TIMESTAMP(6)) AS timestamp,
   "subscription_id" AS subscription_id,
-  "subscription_ids" AS subscription_ids,
-  CAST("timestamp" AS TIMESTAMP(6)) AS timestamp
+  "subscription_ids" AS subscription_ids
 FROM icebase.agenticai_devicesupport.device_issue_data

@@ -34,6 +34,8 @@ SELECT
   CAST("region_info_datetime" AS TIMESTAMP(6)) AS region_info_datetime,
   "region_name" AS region_name,
   CAST("report_time" AS TIMESTAMP(6)) AS report_time,
+  "device_inventory_location" AS device_inventory_location,
+  CAST("schema_ver" AS DOUBLE) AS schema_ver,
   "subscription_id" AS subscription_id,
   "subscription_ids" AS subscription_ids,
   "udc_channel" AS udc_channel,
@@ -41,7 +43,5 @@ SELECT
   CAST("udc_info_datetime" AS TIMESTAMP(6)) AS udc_info_datetime,
   "udc_key" AS udc_key,
   "udc_name" AS udc_name,
-  CAST("udc_version" AS DOUBLE) AS udc_version,
-  "device_inventory_location" AS device_inventory_location,
-  CAST("schema_ver" AS DOUBLE) AS schema_ver
+  CAST("udc_version" AS DOUBLE) AS udc_version
 FROM icebase.agenticai_devicesupport.device_data

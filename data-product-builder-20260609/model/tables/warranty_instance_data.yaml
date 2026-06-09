@@ -17,7 +17,7 @@ tables:
         column: device_id
         public: true
       - name: warranty_start_date
-        description: Start date of the warranty.
+        description: Start date of the warranty period.
         type: time
         column: warranty_start_date
         public: true
@@ -27,7 +27,7 @@ tables:
         column: warranty_status
         public: true
       - name: warranty_type
-        description: Type of warranty.
+        description: Type of warranty for the device.
         type: string
         column: warranty_type
         public: true

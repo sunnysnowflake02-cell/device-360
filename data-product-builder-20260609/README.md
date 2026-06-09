@@ -1,7 +1,7 @@
-# Generated lens: device-intelligence-360-v1
+# Generated lens: device-intelligence-360-v2
 
 ## Description
-This model integrates various data sources related to device intelligence, including device specifications, event statuses, issue tracking, employee data, inventory, memory and storage events, network connectivity, process events, and warranty information.
+This data product integrates various tables related to device intelligence, including device data, event statuses, issues, employee data, inventory, memory, network, process, storage, and warranty information to provide a comprehensive view of enterprise laptop fleets.
 
 How approved tables connect:
 - icebase.agenticai_devicesupport.device_data relates to icebase.agenticai_devicesupport.process_event_data using device_id and device_id (relationship: one to many). Linking device data to process events allows for performance analysis based on device identifiers.

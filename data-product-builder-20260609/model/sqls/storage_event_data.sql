@@ -13,7 +13,7 @@ SELECT
   "item_name" AS item_name,
   TRY_CAST(TRIM("item_time") AS TIMESTAMP(6)) AS item_time,
   TRY_CAST(TRIM("report_time") AS TIMESTAMP(6)) AS report_time,
+  CAST("schema_ver" AS DOUBLE) AS schema_ver,
   "subscription_id" AS subscription_id,
-  "subscription_ids" AS subscription_ids,
-  CAST("schema_ver" AS DOUBLE) AS schema_ver
+  "subscription_ids" AS subscription_ids
 FROM icebase.agenticai_devicesupport.storage_event_data

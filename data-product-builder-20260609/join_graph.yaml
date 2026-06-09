@@ -1,5 +1,5 @@
 version: v1
-lens: device-intelligence-360-v1
+lens: device-intelligence-360-v2
 description: Semantic join graph for this product. Each Lens SQL file remains a single-table SELECT; relationships below define
   how logical tables connect for analytics and validation.
 edges:

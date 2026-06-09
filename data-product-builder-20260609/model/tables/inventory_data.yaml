@@ -22,7 +22,7 @@ tables:
         column: battery_type
         public: true
       - name: skuid
-        description: Stock keeping unit identifier.
+        description: Stock Keeping Unit identifier for the device.
         type: string
         column: skuid
         public: true
@@ -41,3 +41,7 @@ tables:
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
         sql: "{TABLE.device_manufacturer}"
+      - name: total_inventory_quantity
+        description: Total quantity of devices in inventory.
+        type: sum
+        sql: "{TABLE.quantity}"

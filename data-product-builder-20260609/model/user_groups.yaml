@@ -7,7 +7,7 @@ user_groups:
       - jobs
       - source
     includes: '*'
-  - name: device_fleet_admins
+  - name: device_data_users
     api_scopes:
       - meta
       - data
@@ -15,5 +15,35 @@ user_groups:
       - jobs
       - source
     includes:
-      - users:id:admin_user_1
-      - users:id:admin_user_2
+      - users:id:device_user_1
+      - users:id:device_user_2
+  - name: network_event_viewers
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes:
+      - users:id:network_user_1
+      - users:id:network_user_2
+  - name: memory_event_auditors
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes:
+      - users:id:memory_user_1
+      - users:id:memory_user_2
+  - name: process_event_analysts
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes:
+      - users:id:process_user_1
+      - users:id:process_user_2

@@ -1,30 +1,27 @@
 ## Governance context
 
-This data product implements row-level segment security to restrict access to sensitive customer identifiers and endpoint data. Groups are defined in DataOS to ensure that only authorized users can access sensitive information while ensuring that dimension masking transforms values for non-privileged consumers. The governance mode is mixed, combining both masking and row-level security based on PII signals present in the device and customer data.
+This data product employs row-level security to mask sensitive customer identifiers and device identifiers for non-privileged users. Sensitive dimensions will be transformed or masked to prevent unauthorized access, while secure segments will filter rows based on user roles. The governance mode is mixed, as it includes both masking and segment-based access controls to ensure data privacy and compliance with regulations.
 
 ## Sample user groups & YAML
 
 ### Sample User Groups
-
-These user groups are created in DataOS and will control access to the data:
-
+These user groups are created in DataOS to manage access to sensitive data. Below is a YAML example of a segment definition:
 ```yaml
 segments:
-  - name: north_american_devices
+  - name: north_america_devices
     sql: "{TABLE}.region_name = 'North America'"
     meta:
       secure:
         user_groups:
           includes:
-            - device_fleet_admins
-
+            - device_data_users
 user_groups:
-  device_fleet_admins:
+  device_data_users:
     api_scopes:
       - read
     includes:
-      - users:id:admin_user_1
-      - users:id:admin_user_2
+      - users:id:device_user_1
+      - users:id:device_user_2
 ```
 
 ## Suggested mode
@@ -33,4 +30,4 @@ user_groups:
 
 ## Role names (reuse in user_groups + segments)
 
-`device_fleet_admins`
+`device_data_users`, `network_event_viewers`, `memory_event_auditors`, `process_event_analysts`

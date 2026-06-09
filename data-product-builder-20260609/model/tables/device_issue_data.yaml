@@ -36,31 +36,27 @@ tables:
         type: time
         column: report_time
         public: true
-      - name: subscription_id
-        description: Subscription identifier associated with the device.
-        type: string
-        column: subscription_id
-        public: true
-      - name: subscription_ids
-        description: List of subscription identifiers associated with the device.
-        type: string
-        column: subscription_ids
-        public: true
       - name: timestamp
         description: Timestamp of the issue occurrence.
         type: time
         column: timestamp
+        public: true
+      - name: subscription_id
+        description: Column subscription_id from the source table.
+        type: string
+        column: subscription_id
+        public: true
+      - name: subscription_ids
+        description: Column subscription_ids from the source table.
+        type: string
+        column: subscription_ids
         public: true
     measures:
       - name: row_count
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
         sql: "{TABLE.dataset_id}"
-    segments:
-      - name: active_devices
-        sql: "{TABLE}.issue_status = 'Active'"
-        meta:
-          secure:
-            user_groups:
-              includes:
-                - device_fleet_admins
+      - name: issue_count
+        description: Count of issues reported for devices.
+        type: count
+        sql: "{TABLE.issue_title}"

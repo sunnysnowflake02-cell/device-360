@@ -22,7 +22,7 @@ tables:
         column: predicted
         public: true
       - name: predicted_proba
-        description: Probability of the predicted battery performance value.
+        description: Probability of the predicted battery performance.
         type: number
         column: predicted_proba
         public: true

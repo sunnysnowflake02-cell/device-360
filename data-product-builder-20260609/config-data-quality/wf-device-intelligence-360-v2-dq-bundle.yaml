@@ -1,0 +1,109 @@
+name: wf-device-intelligence-360-v2-dq-bundle
+version: v1
+type: workflow
+tags:
+  - Quality.BusinessRule
+  - Tier.Generated
+  - SemanticModelAgent
+description: |
+  Consolidated business-rule data quality checks for this lens. One workflow;
+  multiple source datasets under stackSpec.inputs.
+workspace: public
+workflow:
+  dag:
+    - name: device-intelligence-360-v2-dq-bundle
+      description: |
+        Consolidated DQ checks for approved steward rules (multi-table).
+      title: Consolidated business validation checks
+      spec:
+        stack: soda+python:1.0
+        logLevel: INFO
+        compute: runnable-default
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        stackSpec:
+          inputs:
+            - dataset: dataos://icebase:agenticai_devicesupport/device_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: device_purchase_date_not_future
+                    fail condition: |
+                      TRY_CAST(device_purchase_date AS DATE) > CURRENT_DATE
+                    attributes:
+                      category: Validity
+                      description: "Device purchase dates should logically be in the past. Any future dates could indicate data entry errors or incorrect data ingestion, which could affect device lifecycle analysis."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/memory_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: freephysicalmemory_positive_check
+                    fail condition: |
+                      TRY_CAST(freephysicalmemory AS DOUBLE) <= 0
+                    attributes:
+                      category: Validity
+                      description: "Free physical memory values should always be positive. Negative or zero values could indicate errors in memory reporting, impacting performance metrics and device assessments."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/network_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: linkspeed_validity_check
+                    fail condition: |
+                      NOT (TRY_CAST(linkspeed AS DOUBLE) IS NOT NULL AND TRY_CAST(linkspeed AS DOUBLE) >= 0)
+                    attributes:
+                      category: Validity
+                      description: "Linkspeed should reflect the actual connection speed. Any non-numeric or negative values could suggest data integrity issues that need to be addressed to ensure accurate network performance analysis."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/process_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: processcount_exceeds_limit
+                    fail condition: |
+                      TRY_CAST(processcount AS DOUBLE) > 140
+                    attributes:
+                      category: Validity
+                      description: "The processcount should reflect realistic values for active processes on a device. Given the profiling shows a maximum of 140 processes in sample rows, any count exceeding this may indicate data quality issues or anomalies."
+              profile:
+                columns:
+                  - "*"

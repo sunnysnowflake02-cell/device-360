@@ -2,7 +2,7 @@ tables:
   - name: device_data
     title: Device Data
     sql: {{ load_sql('device_data') }}
-    description: Information about devices in the fleet including identifiers, context, and specifications.
+    description: Information about devices including identifiers, context, and specifications.
     public: true
     joins:
       - name: device_issue_data
@@ -47,22 +47,22 @@ tables:
         column: context_id
         public: true
       - name: dataset_id
-        description: Identifier for the dataset.
+        description: Identifier for the dataset associated with the device.
         type: string
         column: dataset_id
         public: true
       - name: device_context_datetime
-        description: Timestamp of the device context.
+        description: Timestamp of the device context information.
         type: time
         column: device_context_datetime
         public: true
       - name: device_context_id
-        description: Context ID for the device.
+        description: Context identifier for the device context.
         type: string
         column: device_context_id
         public: true
       - name: device_bios_version
-        description: BIOS version of the device.
+        description: Version of the device BIOS.
         type: string
         column: device_bios_version
         public: true
@@ -72,7 +72,7 @@ tables:
         column: device_brand
         public: true
       - name: device_ec_version
-        description: Embedded controller version of the device.
+        description: Version of the device EC.
         type: string
         column: device_ec_version
         public: true
@@ -82,7 +82,7 @@ tables:
         column: device_enclosuretype
         public: true
       - name: device_family
-        description: Family of the device.
+        description: Family classification of the device.
         type: string
         column: device_family
         public: true
@@ -117,7 +117,7 @@ tables:
         column: device_purchase_date
         public: true
       - name: device_smbios_version
-        description: SMBIOS version of the device.
+        description: Version of the device SMBIOS.
         type: string
         column: device_smbios_version
         public: true
@@ -127,12 +127,12 @@ tables:
         column: device_subbrand
         public: true
       - name: os_country
-        description: Country of the operating system.
+        description: Country setting of the operating system.
         type: string
         column: os_country
         public: true
       - name: os_language
-        description: Language of the operating system.
+        description: Language setting of the operating system.
         type: string
         column: os_language
         public: true
@@ -142,12 +142,12 @@ tables:
         column: os_name
         public: true
       - name: os_update_description
-        description: Description of the operating system update.
+        description: Description of the latest OS update.
         type: string
         column: os_update_description
         public: true
       - name: os_update_title
-        description: Title of the operating system update.
+        description: Title of the latest OS update.
         type: string
         column: os_update_title
         public: true
@@ -182,7 +182,7 @@ tables:
         column: region_info_datetime
         public: true
       - name: region_name
-        description: Name of the region.
+        description: Name of the region associated with the device.
         type: string
         column: region_name
         public: true
@@ -190,46 +190,6 @@ tables:
         description: Timestamp of the report.
         type: time
         column: report_time
-        public: true
-      - name: subscription_id
-        description: Subscription identifier associated with the device.
-        type: string
-        column: subscription_id
-        public: true
-      - name: subscription_ids
-        description: List of subscription identifiers associated with the device.
-        type: string
-        column: subscription_ids
-        public: true
-      - name: udc_channel
-        description: Channel of the UDC.
-        type: string
-        column: udc_channel
-        public: true
-      - name: udc_id
-        description: Identifier for the UDC.
-        type: string
-        column: udc_id
-        public: true
-      - name: udc_info_datetime
-        description: Timestamp of the UDC information.
-        type: time
-        column: udc_info_datetime
-        public: true
-      - name: udc_key
-        description: Key for the UDC.
-        type: string
-        column: udc_key
-        public: true
-      - name: udc_name
-        description: Name of the UDC.
-        type: string
-        column: udc_name
-        public: true
-      - name: udc_version
-        description: Version of the UDC.
-        type: number
-        column: udc_version
         public: true
       - name: device_inventory_location
         description: Location of the device in inventory.
@@ -241,16 +201,56 @@ tables:
         type: number
         column: schema_ver
         public: true
+      - name: subscription_id
+        description: Column subscription_id from the source table.
+        type: string
+        column: subscription_id
+        public: true
+      - name: subscription_ids
+        description: Column subscription_ids from the source table.
+        type: string
+        column: subscription_ids
+        public: true
+      - name: udc_channel
+        description: Column udc_channel from the source table.
+        type: string
+        column: udc_channel
+        public: true
+      - name: udc_id
+        description: Column udc_id from the source table.
+        type: string
+        column: udc_id
+        public: true
+      - name: udc_info_datetime
+        description: Column udc_info_datetime from the source table.
+        type: time
+        column: udc_info_datetime
+        public: true
+      - name: udc_key
+        description: Column udc_key from the source table.
+        type: string
+        column: udc_key
+        public: true
+      - name: udc_name
+        description: Column udc_name from the source table.
+        type: string
+        column: udc_name
+        public: true
+      - name: udc_version
+        description: Column udc_version from the source table.
+        type: number
+        column: udc_version
+        public: true
     measures:
       - name: row_count
         description: Distinct rows at natural grain (count distinct on primary key column).
         type: count
         sql: "{TABLE.device_id}"
     segments:
-      - name: north_american_devices
+      - name: north_america_devices
         sql: "{TABLE}.region_name = 'North America'"
         meta:
           secure:
             user_groups:
               includes:
-                - device_fleet_admins
+                - device_data_users

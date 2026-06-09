@@ -2,7 +2,7 @@ tables:
   - name: employee_data
     title: Employee Data
     sql: {{ load_sql('employee_data') }}
-    description: Information about employees associated with customers.
+    description: Information about employees associated with devices.
     public: true
     dimensions:
       - name: customer_id
@@ -17,17 +17,17 @@ tables:
         column: customer_name
         public: true
       - name: customer_location_country
-        description: Country of the customer's location.
+        description: Country of the customer location.
         type: string
         column: customer_location_country
         public: true
       - name: customer_location_state
-        description: State of the customer's location.
+        description: State of the customer location.
         type: string
         column: customer_location_state
         public: true
       - name: customer_email
-        description: Email of the customer.
+        description: Email address of the customer.
         type: string
         column: customer_email
         public: true
@@ -49,12 +49,12 @@ tables:
               includes:
                 - masking_redacted
       - name: created_at
-        description: Timestamp when the customer record was created.
+        description: Timestamp of when the employee record was created.
         type: time
         column: created_at
         public: true
       - name: updated_at
-        description: Timestamp when the customer record was last updated.
+        description: Timestamp of when the employee record was last updated.
         type: time
         column: updated_at
         public: true
