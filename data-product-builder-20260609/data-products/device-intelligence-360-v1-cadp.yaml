@@ -1,0 +1,125 @@
+name: device-intelligence-360-v1-cadp
+version: v1beta
+entity: product
+type: data
+purpose: |
+  Build a Device Intelligence 360 data product for enterprise laptop fleets.
+  This data product is built on steward-approved sources using datasets such as device data, device event status, device issue data, employee data, inventory data, laptop battery ml predictions, memory event data, network event data, process event data, storage event data, warranty instance data, and warranty product master, integrated into a unified semantic view.
+  It can be consumed for reporting, monitoring, operational analytics, and cross-functional decision support.
+  This data product is built on steward-approved sources using datasets such as device data, device event status, device issue data, employee data, inventory data, laptop battery ml predictions, memory event data, network event data, process event data, storage event data, warranty instance data, and warranty product master, integrated into a unified semantic view.
+  It can be consumed for reporting, monitoring, operational analytics, and cross-functional decision support.
+tags:
+  - DPTier.Consumer Aligned
+  - DPDomain.Device Intelligence
+  - DPUsecase.Device Intelligence 360 and Fleet Operations
+  - SemanticModelAgent
+description: |
+  Provides comprehensive analytics for Device Intelligence 360 V1 by integrating operational datasets including Device Data, Device Event Status, Device Issue Data, Employee Data, Inventory Data, Laptop Battery Ml Predictions, Memory Event Data, Network Event Data, Process Event Data, Storage Event Data, Warranty Instance Data, and Warranty Product Master.
+  Provides comprehensive analytics for Device Intelligence 360 V1 by integrating operational datasets including Device Data, Device Event Status, Device Issue Data, Employee Data, Inventory Data, Laptop Battery Ml Predictions, Memory Event Data, Network Event Data, Process Event Data, Storage Event Data, Warranty Instance Data, and Warranty Product Master.
+  Stewards and analysts consume consistent metrics and dimensions through the deployed semantic model for reporting, monitoring, and operational decision support use cases.
+  Stewards and analysts consume consistent metrics and dimensions through the deployed semantic model for reporting, monitoring, and operational decision support use cases.
+owner: manpreetsingh
+
+v1beta:
+  data:
+    meta:
+      title: Device Intelligence 360 V1
+      sourceCodeUrl: https://github.com/sunnysnowflake02-cell/device-360/tree/main/data-product-builder-20260609
+    collaborators:
+      - name: manpreetsingh
+        description: owner
+
+    resource:
+      description: |
+        The Device Intelligence 360 V1 bundle orchestrates steward-approved sources including Device Data, Device Event Status, Device Issue Data, Employee Data, Inventory Data, Laptop Battery Ml Predictions, Memory Event Data, Network Event Data, Process Event Data, Storage Event Data, Warranty Instance Data, and Warranty Product Master into one consistent analytic framework.
+        Build a Device Intelligence 360 data product for enterprise laptop fleets.
+        Teams use this product for shared definitions of metrics and dimensions, data quality monitoring, and operational reporting across the domain.
+      refType: dataos
+      ref: bundle:v1beta:device-intelligence-360-v1-bundle
+
+    inputs:
+      - description: Device Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/device_data
+
+      - description: Device Event Status - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/device_event_status
+
+      - description: Device Issue Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/device_issue_data
+
+      - description: Employee Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/employee_data
+
+      - description: Inventory Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/inventory_data
+
+      - description: Laptop Battery Ml Predictions - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/laptop_battery_ml_predictions
+
+      - description: Memory Event Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/memory_event_data
+
+      - description: Network Event Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/network_event_data
+
+      - description: Process Event Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/process_event_data
+
+      - description: Storage Event Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/storage_event_data
+
+      - description: Warranty Instance Data - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/warranty_instance_data
+
+      - description: Warranty Product Master - Operational data from the Agenticai Devicesupport domain supporting analytics, reporting, and monitoring for this product.
+        purpose: source
+        refType: dataos
+        ref: dataos://icebase:agenticai_devicesupport/warranty_product_master
+
+    ports:
+      lens:
+        ref: lens:v1alpha:device-intelligence-360-v1:public
+        refType: dataos
+        meta:
+          description: |
+            Device Intelligence 360 V1 semantic model providing unified access to curated metrics and dimensions for this data product.
+      rest:
+        - url: https://known-racer.mydataos.com/lens2/api/public:device-intelligence-360-v1/v2/rest
+          meta:
+            description: |
+              REST API for programmatic access to the semantic model (filters and measures as exposed by the deployed Lens).
+      postgres:
+        - host: tcp.known-racer.mydataos.com
+          port: 5432
+          params:
+            ssl: true
+          meta:
+            description: |
+              PostgreSQL access for BI tools against the semantic layer (when enabled for this workspace).
+      graphql:
+        - url: https://known-racer.mydataos.com/lens2/api/public:device-intelligence-360-v1/v2/graphql
+          meta:
+            description: |
+              GraphQL API for flexible queries over the semantic model schema.

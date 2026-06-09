@@ -1,0 +1,63 @@
+name: device-intelligence-360-v1
+version: v1alpha
+type: lens
+tags:
+  - Tier.Generated
+  - SemanticModelAgent
+description: |
+  The Device Intelligence 360 data product provides stakeholders with a comprehensive view of enterprise laptop fleets, focusing on critical metrics such as device performance, resource utilization, and network connectivity. By analyzing key performance indicators related to device failures, including telemetry data and error rates, stakeholders can proactively identify issues and prioritize remediation efforts. This lens supports informed decision-making by highlighting trends in fleet health and service analytics while ensuring sensitive customer information is protected for non-privileged users. Ultimately, it enhances operational efficiency and reduces downtime across the organization.
+layer: user
+owner: manpreetsingh
+workspace: public
+lens:
+  compute: runnable-default
+  runAsUser: manpreetsingh
+  secrets:
+    - name: githubrepo
+      allKeys: true
+  source:
+    type: minerva
+    name: minervac
+    catalog: icebase
+  repo:
+    url: https://github.com/sunnysnowflake02-cell/device-360
+    lensBaseDir: device-360/data-product-builder-20260609/model
+    syncFlags:
+      - --ref=main
+  api:
+    logLevel: info
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  router:
+    logLevel: info
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  worker:
+    logLevel: info
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  metric:
+    logLevel: info
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi

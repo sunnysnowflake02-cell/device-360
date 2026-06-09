@@ -1,0 +1,85 @@
+version: v1
+lens: device-intelligence-360-v1
+description: Semantic join graph for this product. Each Lens SQL file remains a single-table SELECT; relationships below define
+  how logical tables connect for analytics and validation.
+edges:
+- left_table: device_data
+  right_table: process_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.process_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 50855d5e-aac8-446c-a339-8e19b32e6fea
+  rationale: Linking device data to process events allows for performance analysis based on device identifiers.
+- left_table: device_data
+  right_table: memory_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.memory_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: b6826d72-4dcb-4d11-9890-40c185dcce4f
+  rationale: Connecting device data with memory events helps in assessing memory pressure on devices.
+- left_table: device_data
+  right_table: network_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.network_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: e3c15e16-f583-44e1-b4db-1bb6ed827a3a
+  rationale: Linking device data to network events provides insights into connectivity issues.
+- left_table: device_data
+  right_table: storage_event_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.storage_event_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 2102d04d-c5f6-4d37-8849-3f249511c622
+  rationale: Connecting device data with storage events allows for monitoring storage health.
+- left_table: device_data
+  right_table: device_issue_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.device_issue_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 84686266-105d-4396-a8f8-c2d1800c28cc
+  rationale: Linking device data to issues enables tracking of problems associated with specific devices.
+- left_table: device_data
+  right_table: warranty_instance_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.warranty_instance_data
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 295ecea0-c6b5-4e1f-a300-49d6c795edcb
+  rationale: Connecting device data with warranty information helps in analyzing warranty claims.
+- left_table: device_data
+  right_table: laptop_battery_ml_predictions
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.laptop_battery_ml_predictions
+  join_on:
+  - left: device_id
+    right: device_id
+  cardinality: one_to_many
+  id: 1d0e8357-f0ca-4152-8bec-c2d7f7784998
+  rationale: Linking device data to battery predictions aids in failure prediction based on battery health.
+- left_table: device_data
+  right_table: employee_data
+  left_fqn: icebase.agenticai_devicesupport.device_data
+  right_fqn: icebase.agenticai_devicesupport.employee_data
+  join_on:
+  - left: customer_id
+    right: customer_id
+  cardinality: one_to_many
+  id: 728a8087-5388-4958-a801-efc2dd188a47
+  rationale: Connecting device data with employee data provides context for customer-related issues.

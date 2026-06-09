@@ -1,0 +1,123 @@
+tables:
+  - name: network_event_data
+    title: Network Event Data
+    sql: {{ load_sql('network_event_data') }}
+    description: Network connectivity events for devices including IP addresses and connection types.
+    public: true
+    dimensions:
+      - name: dataset_context_id
+        description: Context identifier for the dataset.
+        type: string
+        column: dataset_context_id
+        primary_key: true
+        public: true
+      - name: dataset_id
+        description: Identifier for the dataset.
+        type: string
+        column: dataset_id
+        public: true
+      - name: device_context_id
+        description: Context identifier for the device.
+        type: string
+        column: device_context_id
+        public: true
+      - name: device_id
+        description: Unique identifier for the device.
+        type: string
+        column: device_id
+        public: true
+      - name: item_context_id
+        description: Context identifier for the item.
+        type: string
+        column: item_context_id
+        public: true
+      - name: connectiontype
+        description: Type of network connection.
+        type: string
+        column: connectiontype
+        public: true
+      - name: ipv4gateway
+        description: IPv4 gateway address.
+        type: string
+        column: ipv4gateway
+        public: true
+      - name: ipv4address
+        description: IPv4 address of the device.
+        type: string
+        column: ipv4address
+        public: true
+      - name: ipv6gateway
+        description: IPv6 gateway address.
+        type: string
+        column: ipv6gateway
+        public: true
+      - name: ipv6address
+        description: IPv6 address of the device.
+        type: string
+        column: ipv6address
+        public: true
+      - name: internetconnection
+        description: Indicates if the device has an internet connection.
+        type: boolean
+        column: internetconnection
+        public: true
+      - name: linkspeed
+        description: Speed of the network link.
+        type: number
+        column: linkspeed
+        public: true
+      - name: macaddress
+        description: MAC address of the device.
+        type: string
+        column: macaddress
+        public: true
+      - name: wlansecurity
+        description: Security type of the WLAN connection.
+        type: string
+        column: wlansecurity
+        public: true
+      - name: wlanssid
+        description: SSID of the WLAN connection.
+        type: string
+        column: wlanssid
+        public: true
+      - name: item_id
+        description: Identifier for the item.
+        type: string
+        column: item_id
+        public: true
+      - name: item_name
+        description: Name of the item.
+        type: string
+        column: item_name
+        public: true
+      - name: item_time
+        description: Timestamp for the item.
+        type: time
+        column: item_time
+        public: true
+      - name: report_time
+        description: Timestamp of the report.
+        type: time
+        column: report_time
+        public: true
+      - name: subscription_id
+        description: Subscription identifier associated with the device.
+        type: string
+        column: subscription_id
+        public: true
+      - name: subscription_ids
+        description: List of subscription identifiers associated with the device.
+        type: string
+        column: subscription_ids
+        public: true
+      - name: schema_ver
+        description: Column schema_ver from the source table.
+        type: number
+        column: schema_ver
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.dataset_context_id}"

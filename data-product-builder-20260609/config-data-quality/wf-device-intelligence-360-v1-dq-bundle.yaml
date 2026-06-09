@@ -1,0 +1,219 @@
+name: wf-device-intelligence-360-v1-dq-bundle
+version: v1
+type: workflow
+tags:
+  - Quality.BusinessRule
+  - Tier.Generated
+  - SemanticModelAgent
+description: |
+  Consolidated business-rule data quality checks for this lens. One workflow;
+  multiple source datasets under stackSpec.inputs.
+workspace: public
+workflow:
+  dag:
+    - name: device-intelligence-360-v1-dq-bundle
+      description: |
+        Consolidated DQ checks for approved steward rules (multi-table).
+      title: Consolidated business validation checks
+      spec:
+        stack: soda+python:1.0
+        logLevel: INFO
+        compute: runnable-default
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        stackSpec:
+          inputs:
+            - dataset: dataos://icebase:agenticai_devicesupport/device_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: device_purchase_date_future_check
+                    fail condition: |
+                      TRY_CAST(device_purchase_date AS DATE) > CURRENT_DATE
+                    attributes:
+                      category: Validity
+                      description: "The 'device_purchase_date' column must contain valid past dates to ensure accurate tracking of device lifecycle. The current data shows dates up to 2025, but any future dates would indicate data entry errors or anomalies."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/process_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: cpuusage_valid_percentage
+                    fail condition: |
+                      TRY_CAST(cpuusage AS DOUBLE) < 0 OR TRY_CAST(cpuusage AS DOUBLE) > 100
+                    attributes:
+                      category: Validity
+                      description: "The 'cpuusage' column should only contain valid percentage values (0-100%). Any values outside this range are invalid and could mislead performance assessments. Current profiling indicates a range of values, but further validation is needed to enforce this rule."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/storage_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+                - failed rows:
+                    name: diskfreepercentage_validity
+                    fail condition: |
+                      TRY_CAST(diskfreepercentage AS DOUBLE) < 0 OR TRY_CAST(diskfreepercentage AS DOUBLE) > 100
+                    attributes:
+                      category: Validity
+                      description: "The 'diskfreepercentage' column must reflect valid disk usage metrics. Values below 0 or above 100 are not plausible and indicate data quality issues. Current profiling shows values in a reasonable range, but checks should be enforced to prevent outliers."
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/device_event_status
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/device_issue_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/employee_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/inventory_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/laptop_battery_ml_predictions
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/memory_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/network_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/process_event_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/warranty_instance_data
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"
+
+            - dataset: dataos://icebase:agenticai_devicesupport/warranty_product_master
+              options:
+                engine: minerva
+                clusterName: minervac
+              checks:
+                - row_count > 0:
+                    attributes:
+                      category: Freshness
+                      description: "Table must have data"
+              profile:
+                columns:
+                  - "*"

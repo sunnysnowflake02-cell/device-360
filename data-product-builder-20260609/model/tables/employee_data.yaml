@@ -1,0 +1,70 @@
+tables:
+  - name: employee_data
+    title: Employee Data
+    sql: {{ load_sql('employee_data') }}
+    description: Information about employees associated with customers.
+    public: true
+    dimensions:
+      - name: customer_id
+        description: Identifier for the customer.
+        type: string
+        column: customer_id
+        primary_key: true
+        public: true
+      - name: customer_name
+        description: Name of the customer.
+        type: string
+        column: customer_name
+        public: true
+      - name: customer_location_country
+        description: Country of the customer's location.
+        type: string
+        column: customer_location_country
+        public: true
+      - name: customer_location_state
+        description: State of the customer's location.
+        type: string
+        column: customer_location_state
+        public: true
+      - name: customer_email
+        description: Email of the customer.
+        type: string
+        column: customer_email
+        public: true
+        meta:
+          secure:
+            func: redact
+            user_groups:
+              includes:
+                - masking_redacted
+      - name: customer_phone
+        description: Phone number of the customer.
+        type: string
+        column: customer_phone
+        public: true
+        meta:
+          secure:
+            func: redact
+            user_groups:
+              includes:
+                - masking_redacted
+      - name: created_at
+        description: Timestamp when the customer record was created.
+        type: time
+        column: created_at
+        public: true
+      - name: updated_at
+        description: Timestamp when the customer record was last updated.
+        type: time
+        column: updated_at
+        public: true
+      - name: customer_department
+        description: Department of the customer.
+        type: string
+        column: customer_department
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.customer_id}"

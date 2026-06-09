@@ -1,0 +1,369 @@
+tables:
+  - name: process_event_data
+    title: Process Event Data
+    sql: {{ load_sql('process_event_data') }}
+    description: Process events for devices including CPU usage and process counts.
+    public: true
+    dimensions:
+      - name: dataset_context_id
+        description: Context identifier for the dataset.
+        type: string
+        column: dataset_context_id
+        primary_key: true
+        public: true
+      - name: dataset_id
+        description: Identifier for the dataset.
+        type: string
+        column: dataset_id
+        public: true
+      - name: device_context_id
+        description: Context identifier for the device.
+        type: string
+        column: device_context_id
+        public: true
+      - name: device_id
+        description: Unique identifier for the device.
+        type: string
+        column: device_id
+        public: true
+      - name: item_context_id
+        description: Context identifier for the item.
+        type: string
+        column: item_context_id
+        public: true
+      - name: cpuusage
+        description: CPU usage percentage.
+        type: number
+        column: cpuusage
+        public: true
+      - name: numofprocesspercpuusage
+        description: Number of processes per CPU usage.
+        type: number
+        column: numofprocesspercpuusage
+        public: true
+      - name: numofthreadpercpuusage
+        description: Number of threads per CPU usage.
+        type: number
+        column: numofthreadpercpuusage
+        public: true
+      - name: processcount
+        description: Count of processes running on the device.
+        type: number
+        column: processcount
+        public: true
+      - name: systemstate
+        description: Current state of the system.
+        type: string
+        column: systemstate
+        public: true
+      - name: threadcount
+        description: Count of threads running on the device.
+        type: number
+        column: threadcount
+        public: true
+      - name: item_id
+        description: Identifier for the item.
+        type: string
+        column: item_id
+        public: true
+      - name: item_name
+        description: Name of the item.
+        type: string
+        column: item_name
+        public: true
+      - name: item_time
+        description: Timestamp for the item.
+        type: time
+        column: item_time
+        public: true
+      - name: report_time
+        description: Timestamp of the report.
+        type: time
+        column: report_time
+        public: true
+      - name: subscription_id
+        description: Subscription identifier associated with the device.
+        type: string
+        column: subscription_id
+        public: true
+      - name: subscription_ids
+        description: List of subscription identifiers associated with the device.
+        type: string
+        column: subscription_ids
+        public: true
+      - name: process_1_cpuusageperc
+        description: CPU usage percentage for process 1.
+        type: number
+        column: process_1_cpuusageperc
+        public: true
+      - name: process_1_filedescription
+        description: File description for process 1.
+        type: string
+        column: process_1_filedescription
+        public: true
+      - name: process_1_filemodifieddate
+        description: File modified date for process 1.
+        type: time
+        column: process_1_filemodifieddate
+        public: true
+      - name: process_1_filename
+        description: Filename for process 1.
+        type: string
+        column: process_1_filename
+        public: true
+      - name: process_1_filepublisher
+        description: File publisher for process 1.
+        type: string
+        column: process_1_filepublisher
+        public: true
+      - name: process_1_fileversion
+        description: File version for process 1.
+        type: string
+        column: process_1_fileversion
+        public: true
+      - name: process_1_id
+        description: Identifier for process 1.
+        type: number
+        column: process_1_id
+        public: true
+      - name: process_1_productname
+        description: Product name for process 1.
+        type: string
+        column: process_1_productname
+        public: true
+      - name: process_1_threadcpuusageperc
+        description: Thread CPU usage percentage for process 1.
+        type: number
+        column: process_1_threadcpuusageperc
+        public: true
+      - name: process_1_threadid
+        description: Thread ID for process 1.
+        type: number
+        column: process_1_threadid
+        public: true
+      - name: process_2_cpuusageperc
+        description: CPU usage percentage for process 2.
+        type: number
+        column: process_2_cpuusageperc
+        public: true
+      - name: process_2_filedescription
+        description: File description for process 2.
+        type: string
+        column: process_2_filedescription
+        public: true
+      - name: process_2_filemodifieddate
+        description: File modified date for process 2.
+        type: time
+        column: process_2_filemodifieddate
+        public: true
+      - name: process_2_filename
+        description: Filename for process 2.
+        type: string
+        column: process_2_filename
+        public: true
+      - name: process_2_filepublisher
+        description: File publisher for process 2.
+        type: string
+        column: process_2_filepublisher
+        public: true
+      - name: process_2_fileversion
+        description: File version for process 2.
+        type: string
+        column: process_2_fileversion
+        public: true
+      - name: process_2_id
+        description: Identifier for process 2.
+        type: number
+        column: process_2_id
+        public: true
+      - name: process_2_productname
+        description: Product name for process 2.
+        type: string
+        column: process_2_productname
+        public: true
+      - name: process_2_threadcpuusageperc
+        description: Thread CPU usage percentage for process 2.
+        type: number
+        column: process_2_threadcpuusageperc
+        public: true
+      - name: process_2_threadid
+        description: Thread ID for process 2.
+        type: number
+        column: process_2_threadid
+        public: true
+      - name: process_3_cpuusageperc
+        description: CPU usage percentage for process 3.
+        type: number
+        column: process_3_cpuusageperc
+        public: true
+      - name: process_3_filedescription
+        description: File description for process 3.
+        type: string
+        column: process_3_filedescription
+        public: true
+      - name: process_3_filemodifieddate
+        description: File modified date for process 3.
+        type: time
+        column: process_3_filemodifieddate
+        public: true
+      - name: process_3_filename
+        description: Filename for process 3.
+        type: string
+        column: process_3_filename
+        public: true
+      - name: process_3_filepublisher
+        description: File publisher for process 3.
+        type: string
+        column: process_3_filepublisher
+        public: true
+      - name: process_3_fileversion
+        description: File version for process 3.
+        type: string
+        column: process_3_fileversion
+        public: true
+      - name: process_3_id
+        description: Identifier for process 3.
+        type: number
+        column: process_3_id
+        public: true
+      - name: process_3_productname
+        description: Product name for process 3.
+        type: string
+        column: process_3_productname
+        public: true
+      - name: process_3_threadcpuusageperc
+        description: Thread CPU usage percentage for process 3.
+        type: number
+        column: process_3_threadcpuusageperc
+        public: true
+      - name: process_3_threadid
+        description: Thread ID for process 3.
+        type: number
+        column: process_3_threadid
+        public: true
+      - name: process_4_cpuusageperc
+        description: CPU usage percentage for process 4.
+        type: number
+        column: process_4_cpuusageperc
+        public: true
+      - name: process_4_filedescription
+        description: File description for process 4.
+        type: string
+        column: process_4_filedescription
+        public: true
+      - name: process_4_filemodifieddate
+        description: File modified date for process 4.
+        type: time
+        column: process_4_filemodifieddate
+        public: true
+      - name: process_4_filename
+        description: Filename for process 4.
+        type: string
+        column: process_4_filename
+        public: true
+      - name: process_4_filepublisher
+        description: File publisher for process 4.
+        type: string
+        column: process_4_filepublisher
+        public: true
+      - name: process_4_fileversion
+        description: File version for process 4.
+        type: string
+        column: process_4_fileversion
+        public: true
+      - name: process_4_id
+        description: Identifier for process 4.
+        type: number
+        column: process_4_id
+        public: true
+      - name: process_4_productname
+        description: Product name for process 4.
+        type: string
+        column: process_4_productname
+        public: true
+      - name: process_4_threadcpuusageperc
+        description: Thread CPU usage percentage for process 4.
+        type: number
+        column: process_4_threadcpuusageperc
+        public: true
+      - name: process_4_threadid
+        description: Thread ID for process 4.
+        type: number
+        column: process_4_threadid
+        public: true
+      - name: process_5_cpuusageperc
+        description: CPU usage percentage for process 5.
+        type: number
+        column: process_5_cpuusageperc
+        public: true
+      - name: process_5_filedescription
+        description: File description for process 5.
+        type: string
+        column: process_5_filedescription
+        public: true
+      - name: process_5_filemodifieddate
+        description: File modified date for process 5.
+        type: time
+        column: process_5_filemodifieddate
+        public: true
+      - name: process_5_filename
+        description: Filename for process 5.
+        type: string
+        column: process_5_filename
+        public: true
+      - name: process_5_filepublisher
+        description: File publisher for process 5.
+        type: string
+        column: process_5_filepublisher
+        public: true
+      - name: process_5_fileversion
+        description: File version for process 5.
+        type: string
+        column: process_5_fileversion
+        public: true
+      - name: process_5_id
+        description: Identifier for process 5.
+        type: number
+        column: process_5_id
+        public: true
+      - name: process_5_productname
+        description: Product name for process 5.
+        type: string
+        column: process_5_productname
+        public: true
+      - name: process_5_threadcpuusageperc
+        description: Thread CPU usage percentage for process 5.
+        type: number
+        column: process_5_threadcpuusageperc
+        public: true
+      - name: process_5_threadid
+        description: Thread ID for process 5.
+        type: number
+        column: process_5_threadid
+        public: true
+      - name: schema_ver
+        description: Column schema_ver from the source table.
+        type: number
+        column: schema_ver
+        public: true
+    measures:
+      - name: row_count
+        description: Distinct rows at natural grain (count distinct on primary key column).
+        type: count
+        sql: "{TABLE.dataset_context_id}"
+      - name: avg_cpuusage
+        description: Average of cpuusage for rows in this grain.
+        type: avg
+        sql: "{TABLE.cpuusage}"
+      - name: avg_numofprocesspercpuusage
+        description: Average of numofprocesspercpuusage for rows in this grain.
+        type: avg
+        sql: "{TABLE.numofprocesspercpuusage}"
+      - name: avg_numofthreadpercpuusage
+        description: Average of numofthreadpercpuusage for rows in this grain.
+        type: avg
+        sql: "{TABLE.numofthreadpercpuusage}"
+      - name: sum_processcount
+        description: Sum of processcount for rows in this grain.
+        type: sum
+        sql: "{TABLE.processcount}"
